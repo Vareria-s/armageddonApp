@@ -1,21 +1,27 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import s from './TextCard.module.css';
 import dino from './../../../../img/dino.png';
 import Destruction from './../../../../img/asteroid3.png';
+import Normal from './../../../../img/asteroid2.png';
 import Close from './../../../../img/asteroid1.png';
+import {MyContext} from "../../../../App";
 
 
-const TextCard = ({asteroid, isDistance, dispatch}) => {
+const TextCard = (props) => {
+    const {asteroid} = props;
 
-    const distanceObject = isDistance ? `${asteroid.distance.kilometers} км` : `${asteroid.distance.moon} км`
+    const {state, dispatch} =useContext(MyContext);
+
+    const distanceObject = state.setIsDistance ? `${asteroid.distance.kilometers} км` : `${asteroid.distance.moon} км`
 
     const statusObject= asteroid.inDangerous ? "опасен" : "неопасен";
+    const asteroidPicture = asteroid.size > 1 ? Destruction : asteroid.size > 0.09 ? Normal: Close
 
 
     return (
         <div className={asteroid.inDangerous ? s.redGradient : s.greenGradient}>
             <img src={dino} className={s.dino} alt=""/>
-            <img src={asteroid.inDangerous ? Destruction : Close} className={s.logoRed} alt=""/>
+            <img src={asteroidPicture} className={s.logoRed} alt=""/>
             <div className={s.nav}>
                 <div className={s.header}>{asteroid.name}</div>
                 <div className={s.item}>Дата {asteroid.date}</div>
@@ -25,10 +31,7 @@ const TextCard = ({asteroid, isDistance, dispatch}) => {
             <div className={s.grade}>
                 <div className={s.text}>Оценка:</div>
                 <div className={s.status}>{statusObject}</div>
-                <button onClick={()=>{dispatch({
-                    type: 'ADD',
-                    payload: asteroid
-                })}}>На уничтожение</button>
+                <button onClick={()=>{dispatch({type: 'ADD', payload: asteroid})}}>На уничтожение</button>
             </div>
         </div>
     )

@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import Navbar from './navbar/Navbar'
 import s from './Header.module.css';
 
 const Header = () => {
+
+
     return (
         <div className={s.nav}>
             <div className={s.item}>

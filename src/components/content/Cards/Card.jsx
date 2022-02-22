@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import s from './Card.module.css';
 import TextCard from "./TextCard/TextCard";
+import {MyContext} from "../../../App";
 
 
-const Card = ({showDangerous, asteroids, isDistance, dispatch}) => {
+const Card = ({asteroids, isDistance}) => {
 
-    const asteroidsArray = showDangerous ? asteroids.filter(asteroid=>asteroid.inDangerous) : asteroids;
+    const {state, dispatch} =useContext(MyContext);
+
+    const asteroidsArray = state.onlyDangerous ? asteroids.filter(asteroid=>asteroid.inDangerous) : asteroids;
 
     return (
         <div className={s.nav}>
