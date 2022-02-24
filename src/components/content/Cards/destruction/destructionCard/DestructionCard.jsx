@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import s from './DestructionCard.module.css';
 import Destruction from './../../../../../img/asteroid3.png';
 import Close from './../../../../../img/asteroid1.png';
+import {MyContext} from "../../../../../App";
 
 
-const TextCard = ({asteroid, isDistance, dispatch}) => {
+const TextCard = (props) => {
+    const {asteroid} = props;
 
-    const distanceObject = isDistance ? `${asteroid.distance.kilometers} км` : `${asteroid.distance.moon} км`
+    const {state, dispatch} =useContext(MyContext);
+
+    const distanceObject = state.setIsDistance ? `${asteroid.distance.kilometers} км` : `${asteroid.distance.moon} км`
 
     const statusObject= asteroid.inDangerous ? "опасен" : "неопасен";
 

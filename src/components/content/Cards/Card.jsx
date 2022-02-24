@@ -4,8 +4,8 @@ import TextCard from "./TextCard/TextCard";
 import {MyContext} from "../../../App";
 
 
-const Card = ({asteroids, isDistance}) => {
-
+const Card = (props) => {
+    const {asteroids} = props;
     const {state, dispatch} =useContext(MyContext);
 
     const asteroidsArray = state.onlyDangerous ? asteroids.filter(asteroid=>asteroid.inDangerous) : asteroids;
@@ -13,7 +13,6 @@ const Card = ({asteroids, isDistance}) => {
     return (
         <div className={s.nav}>
             {asteroidsArray.map((asteroid) => <TextCard asteroid={asteroid}
-                                                        isDistance={isDistance}
                                                         dispatch={dispatch}
                                                         key={asteroid.id}/>)}
         </div>
