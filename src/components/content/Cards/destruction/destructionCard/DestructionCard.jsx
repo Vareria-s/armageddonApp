@@ -3,6 +3,7 @@ import s from './DestructionCard.module.css';
 import Destruction from './../../../../../img/asteroid3.png';
 import Close from './../../../../../img/asteroid1.png';
 import {MyContext} from "../../../../../App";
+import Normal from "../../../../../img/asteroid2.png";
 
 
 const TextCard = (props) => {
@@ -14,9 +15,11 @@ const TextCard = (props) => {
 
     const statusObject= asteroid.inDangerous ? "опасен" : "неопасен";
 
+    const asteroidPicture = asteroid.size > 1 ? Destruction : asteroid.size > 0.09 ? Normal: Close
+
     return (
         <div className={asteroid.inDangerous ? s.redGradient : s.greenGradient}>
-            <img src={asteroid.inDangerous ? Destruction : Close} className={s.logoRed} alt=""/>
+            <img src={asteroidPicture} className={s.logoRed} alt=""/>
             <div className={s.nav}>
                 <div className={s.header}>{asteroid.name}</div>
                 <div className={s.item}>Дата {asteroid.date}</div>
@@ -30,7 +33,7 @@ const TextCard = (props) => {
                 <button onClick={()=>{dispatch({
                     type: 'DELETE',
                     payload: asteroid
-                })}}>Убрать</button>
+                })}}>Убрать из списка</button>
             </div>
         </div>
     )
