@@ -1,14 +1,14 @@
 import React from 'react';
 import s from './Filter.module.css';
-import FilterDangerously from "./FilterDangerously/FilterDangerously";
-import FilterDistance from "./FilterDistance/FilterDistance";
+import {FilterDangerouslyContainer} from "./FilterDangerously/FilterDangerouslyContainer";
+import {FilterDistanceContainer} from "./FilterDistance/FilterDistanceContainer";
 
 const Filter = () => {
 
     return (
         <div className={s.nav}>
-            <FilterDangerously />
-            <FilterDistance />
+            <FilterDangerouslyContainer />
+            <FilterDistanceContainer />
         </div>
     )
 }

@@ -1,19 +1,15 @@
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import s from './FilterDangerously.module.css';
-import {MyContext} from "../../../../App";
 
 
-const FilterDangerously = () => {
-
-    const {state, dispatch} = useContext(MyContext);
+const FilterDangerously = (props) => {
+    const {onlyDangerous, changeOnlyDangerous} = props;
 
     return (
         <div className={s.nav}>
             <label>
-                <input type="checkbox" defaultChecked={state.onlyDangerous}
-    onClick={() => {
-        dispatch({type: 'CHANGE_ONLY_DANGEROUS'})
-    }}/>Показать только опасные
+                <input type="checkbox" defaultChecked={onlyDangerous}
+    onClick={changeOnlyDangerous}/>Показать только опасные
             </label>
         </div>
     )

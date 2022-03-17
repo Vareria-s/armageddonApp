@@ -1,15 +1,16 @@
 import React from 'react';
 import s from './Card.module.css';
-import TextCard from "./TextCard/TextCard";
+import {TextCardContainer} from "./TextCard/TextCardContainer";
 
 
+const Card = (props) => {
+    const {asteroids,onlyDangerous} = props;
 
-const Card = () => {
-    const asteroidsArray = state.onlyDangerous ? state.asteroids.filter(asteroid=>asteroid.inDangerous) : state.asteroids;
+    const asteroidsArray = onlyDangerous ? asteroids.filter(asteroid=>asteroid.inDangerous) : asteroids;
 
     return (
         <div className={s.nav}>
-            {asteroidsArray.map((asteroid) => <TextCard asteroid={asteroid}
+            {asteroidsArray.map((asteroid) => <TextCardContainer asteroid={asteroid}
                                                         key={asteroid.id}/>)}
         </div>
     )

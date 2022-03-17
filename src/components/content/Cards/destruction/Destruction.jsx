@@ -1,17 +1,16 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import s from './Destruction.module.css';
-import DestructionCard from "./destructionCard/DestructionCard";
-import {MyContext} from "../../../../App";
+import {DestructionContainer} from "./DestructionContainer";
+import {DestructionCardContainer} from "./destructionCard/DestructionCardContainer";
 
 
 const Destruction = (props) => {
-    const {forDestroying} = props;
-    const {state} =useContext(MyContext);
+    const {forDestroying,onlyDangerous} = props;
 
-    const forDestroyingArray = state.onlyDangerous ? forDestroying.filter(asteroid=>asteroid.inDangerous) : forDestroying;
+    const forDestroyingArray = onlyDangerous ? forDestroying.filter(asteroid=>asteroid.inDangerous) : forDestroying;
     return (
         <div className={s.nav}>
-                {forDestroyingArray.map((asteroid) => <div className={s.item}><DestructionCard asteroid={asteroid}
+                {forDestroyingArray.map((asteroid) => <div className={s.item}><DestructionCardContainer asteroid={asteroid}
                                                                                           key={asteroid.id}/></div>)}
         </div>
     )

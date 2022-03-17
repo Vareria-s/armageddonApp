@@ -1,18 +1,15 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import s from './TextCard.module.css';
 import dino from './../../../../img/dino.png';
 import Destruction from './../../../../img/asteroid3.png';
 import Normal from './../../../../img/asteroid2.png';
 import Close from './../../../../img/asteroid1.png';
-import {MyContext} from "../../../../App";
 
 
 const TextCard = (props) => {
-    const {asteroid} = props;
+    const {asteroid, setIsDistance, addNew} = props;
 
-    const {state, dispatch} =useContext(MyContext);
-
-    const distanceObject = state.setIsDistance ? `${asteroid.distance.kilometers} км` : `${asteroid.distance.moon} км`
+    const distanceObject = setIsDistance ? `${asteroid.distance.kilometers} км` : `${asteroid.distance.moon} км`
 
     const statusObject= asteroid.inDangerous ? "опасен" : "неопасен";
     const asteroidPicture = asteroid.size > 1 ? Destruction : asteroid.size > 0.09 ? Normal: Close
@@ -31,7 +28,7 @@ const TextCard = (props) => {
             <div className={s.grade}>
                 <div className={s.text}>Оценка:</div>
                 <div className={s.status}>{statusObject}</div>
-                <button onClick={()=>{dispatch({type: 'ADD', payload: asteroid})}}>На уничтожение</button>
+                <button onClick={addNew}>На уничтожение</button>
             </div>
         </div>
     )

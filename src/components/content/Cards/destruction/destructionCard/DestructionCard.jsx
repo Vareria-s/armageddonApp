@@ -1,17 +1,14 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import s from './DestructionCard.module.css';
 import Destruction from './../../../../../img/asteroid3.png';
 import Close from './../../../../../img/asteroid1.png';
-import {MyContext} from "../../../../../App";
 import Normal from "../../../../../img/asteroid2.png";
 
 
-const TextCard = (props) => {
-    const {asteroid} = props;
+const DestructionCard = (props) => {
+    const {asteroid, dataNew, setIsDistance} = props;
 
-    const {state, dispatch} =useContext(MyContext);
-
-    const distanceObject = state.setIsDistance ? `${asteroid.distance.kilometers} км` : `${asteroid.distance.moon} км`
+    const distanceObject = setIsDistance ? `${asteroid.distance.kilometers} км` : `${asteroid.distance.moon} км`
 
     const statusObject= asteroid.inDangerous ? "опасен" : "неопасен";
 
@@ -30,10 +27,7 @@ const TextCard = (props) => {
                 <div className={s.text}>Оценка:
                     <div className={s.status}> {statusObject}</div>
                 </div>
-                <button onClick={()=>{dispatch({
-                    type: 'DELETE',
-                    payload: asteroid
-                })}}>Убрать из списка</button>
+                <button onClick={dataNew}>Убрать из списка</button>
             </div>
         </div>
     )
@@ -41,4 +35,4 @@ const TextCard = (props) => {
 
 
 
-export default TextCard;
+export default DestructionCard;

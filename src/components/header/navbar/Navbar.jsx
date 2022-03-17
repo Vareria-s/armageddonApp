@@ -1,13 +1,12 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
-import {MyContext} from "../../../App";
 
 
 const activeLink =  navData => navData.isActive ? s.active : s.item;
 
-const Navbar = () => {
-    const {state} = useContext(MyContext);
+const Navbar = (props) => {
+    const {asteroidsFor}=props;
 
     return (
         <div className={s.nav}>
@@ -17,7 +16,7 @@ const Navbar = () => {
             <div className={s.item}>
                 <NavLink to="/destruction" className = {activeLink}>Уничтожение</NavLink>
             </div>
-            <div className={s.counter}>{state.asteroidsForDestroying.length}</div>
+            <div className={s.counter}>{asteroidsFor}</div>
         </div>
     )
 }
