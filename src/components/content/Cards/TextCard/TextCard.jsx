@@ -5,8 +5,13 @@ import Destruction from './../../../../img/asteroid3.png';
 import Normal from './../../../../img/asteroid2.png';
 import Close from './../../../../img/asteroid1.png';
 
+export type TextCardProps  = {
+    asteroid: any;
+    setIsDistance: any;
+    addNew: any;
+}
 
-const TextCard = (props) => {
+const TextCard = (props: TextCardProps) => {
     const {asteroid, setIsDistance, addNew} = props;
 
     const distanceObject = setIsDistance ? `${asteroid.distance.kilometers} км` : `${asteroid.distance.moon} км`
