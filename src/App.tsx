@@ -1,10 +1,10 @@
-import React, {createContext, useEffect, useReducer, useState} from 'react';
+import React, {createContext, useEffect, useReducer} from 'react';
 import './App.css';
 import Header from './components/header/Header';
 import Content from "./components/content/Content";
 import {BrowserRouter} from "react-router-dom";
 
-export const MyContext = createContext();
+export const MyContext= createContext();
 
 const App = () => {
 
