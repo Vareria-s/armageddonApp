@@ -1,8 +1,12 @@
 import React from 'react';
 import s from './FilterDangerously.module.css';
 
+export type FilterDangerouslyProps = {
+    onlyDangerous: any;
+    changeOnlyDangerous: any;
+}
 
-const FilterDangerously = (props) => {
+const FilterDangerously = (props: FilterDangerouslyProps) => {
     const {onlyDangerous, changeOnlyDangerous} = props;
 
     return (

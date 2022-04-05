@@ -3,9 +3,10 @@ import s from './Navbar.module.css';
 import {NavLink} from "react-router-dom";
 
 
-const activeLink =  navData => navData.isActive ? s.active : s.item;
 
-const Navbar = (props) => {
+const activeLink =  (navData: { isActive: any; }) => navData.isActive ? s.active : s.item;
+
+const Navbar = (props: { asteroidsFor: any; }) => {
     const {asteroidsFor}=props;
 
     return (

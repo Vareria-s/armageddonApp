@@ -4,20 +4,37 @@ import Header from './components/header/Header';
 import Content from "./components/content/Content";
 import {BrowserRouter} from "react-router-dom";
 
+
+// @ts-ignore
 export const MyContext= createContext();
+
+
+
+export type asteroidsContextType = {
+    asteroids: any,
+    asteroidsForDestroying: any,
+    onlyDangerous: boolean,
+    setIsDistance:boolean,
+}
+
+export const initialState: asteroidsContextType = {
+    asteroids: [],
+    asteroidsForDestroying: [],
+    onlyDangerous: false,
+    setIsDistance:false,
+}
+
 
 const App = () => {
 
-    const initialState = {asteroids: [], asteroidsForDestroying: [], onlyDangerous: false, setIsDistance:false}
-
-    const asteroidsReducer = (state, action) => {
+    const asteroidsReducer = (state = initialState, action: any) => {
         switch (action?.type) {
             case 'LOAD_ASTEROIDS':
                 return {...state, asteroids: action.payload};
             case 'ADD':
                 return {...state, asteroidsForDestroying: [...state.asteroidsForDestroying, action.payload]};
             case 'DELETE':
-                return {...state, asteroidsForDestroying: [...state.asteroidsForDestroying.filter(item => item.name !== action.payload.name)]};
+                return {...state, asteroidsForDestroying: [...state.asteroidsForDestroying.filter((item: { name: any; }) => item.name !== action.payload.name)]};
             case 'CHANGE_ONLY_DANGEROUS':
                 return {...state, onlyDangerous: !state.onlyDangerous};
             case 'NEW_CHANGE_ONLY_DISTANCE':
@@ -33,7 +50,7 @@ const App = () => {
 
 
     useEffect(()=>{
-        fetch(makaRequest())
+        fetch(makeRequest())
             .then(response => response.json())
             .then(data => {
                 dispatch({payload: mapAsteroids(data.near_earth_objects), type: 'LOAD_ASTEROIDS'});
@@ -56,12 +73,13 @@ const App = () => {
 
 export default App;
 
-const mapAsteroids = (nearEarthObjects) =>{
-    let asteroids = [];
+
+const mapAsteroids = (nearEarthObjects: any) =>{
+    let asteroids: any = [];
     for (let day in nearEarthObjects) {
         asteroids = asteroids.concat(nearEarthObjects[day])
     }
-    return asteroids.map(asteroid => {
+    return asteroids.map((asteroid : any) => {
         return {
             id: asteroid.id,
             name: asteroid.name,
@@ -76,12 +94,12 @@ const mapAsteroids = (nearEarthObjects) =>{
     })
 }
 
-const makaRequest =()=>{
+const makeRequest =()=>{
     const dateObj = new Date();
-    const day = dateObj.getUTCDate().toString();
+    const day: any = dateObj.getUTCDate().toString();
     const month = (dateObj.getMonth() + 1).toString(); //months from 1-12
     const year = dateObj.getUTCFullYear();
-    return `https://api.nasa.gov/neo/rest/v1/feed?start_date=2022-03-${day-7}&end_date=${year}-${month}-${day}&api_key=DEMO_KEY`;
+    return `https://api.nasa.gov/neo/rest/v1/feed?start_date=2022-04-${day-4}&end_date=${year}-${month}-${day}&api_key=DEMO_KEY`;
 }
 
 

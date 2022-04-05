@@ -4,8 +4,13 @@ import Destruction from './../../../../../img/asteroid3.png';
 import Close from './../../../../../img/asteroid1.png';
 import Normal from "../../../../../img/asteroid2.png";
 
+export type DestructionCardProps = {
+    asteroid: any;
+    dataNew: any;
+    setIsDistance: any;
+}
 
-const DestructionCard = (props) => {
+const DestructionCard = (props: DestructionCardProps) => {
     const {asteroid, dataNew, setIsDistance} = props;
 
     const distanceObject = setIsDistance ? `${asteroid.distance.kilometers} км` : `${asteroid.distance.moon} км`
