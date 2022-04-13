@@ -10,6 +10,3 @@ export const DestructionContainer = () => {
     return <Destruction forDestroying={state.asteroidsForDestroying}
                  onlyDangerous={state.onlyDangerous}/>
 }
-
-
-

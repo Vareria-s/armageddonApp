@@ -24,30 +24,28 @@ export const initialState: asteroidsContextType = {
     setIsDistance:false,
 }
 
+export const asteroidsReducer = (state = initialState, action: any) => {
+    switch (action?.type) {
+        case 'LOAD_ASTEROIDS':
+            return {...state, asteroids: action.payload};
+        case 'ADD':
+            return {...state, asteroidsForDestroying: [...state.asteroidsForDestroying, action.payload]};
+        case 'DELETE':
+            return {...state, asteroidsForDestroying: [...state.asteroidsForDestroying.filter((item: { name: any; }) => item.name !== action.payload.name)]};
+        case 'CHANGE_ONLY_DANGEROUS':
+            return {...state, onlyDangerous: !state.onlyDangerous};
+        case 'NEW_CHANGE_ONLY_DISTANCE':
+            return {...state, setIsDistance: false};
+        case 'CHANGE_ONLY_DISTANCE':
+            return {...state, setIsDistance: true};
+        default:
+            return state;
+    }
+}
+
+const [state, dispatch] = useReducer(asteroidsReducer, initialState);
 
 const App = () => {
-
-    const asteroidsReducer = (state = initialState, action: any) => {
-        switch (action?.type) {
-            case 'LOAD_ASTEROIDS':
-                return {...state, asteroids: action.payload};
-            case 'ADD':
-                return {...state, asteroidsForDestroying: [...state.asteroidsForDestroying, action.payload]};
-            case 'DELETE':
-                return {...state, asteroidsForDestroying: [...state.asteroidsForDestroying.filter((item: { name: any; }) => item.name !== action.payload.name)]};
-            case 'CHANGE_ONLY_DANGEROUS':
-                return {...state, onlyDangerous: !state.onlyDangerous};
-            case 'NEW_CHANGE_ONLY_DISTANCE':
-                return {...state, setIsDistance: false};
-            case 'CHANGE_ONLY_DISTANCE':
-                return {...state, setIsDistance: true};
-            default:
-                return state;
-        }
-    }
-
-    const [state, dispatch] = useReducer(asteroidsReducer, initialState);
-
 
     useEffect(()=>{
         fetch(makeRequest())
