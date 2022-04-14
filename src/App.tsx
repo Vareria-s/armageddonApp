@@ -9,7 +9,6 @@ import {BrowserRouter} from "react-router-dom";
 export const MyContext= createContext();
 
 
-
 export type asteroidsContextType = {
     asteroids: any,
     asteroidsForDestroying: any,
@@ -23,7 +22,6 @@ export const initialState: asteroidsContextType = {
     onlyDangerous: false,
     setIsDistance:false,
 }
-
 
 const App = () => {
 
