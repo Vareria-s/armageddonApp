@@ -81,7 +81,7 @@ const makaRequest =()=>{
     const day = dateObj.getUTCDate().toString();
     const month = (dateObj.getMonth() + 1).toString(); //months from 1-12
     const year = dateObj.getUTCFullYear();
-    return `https://api.nasa.gov/neo/rest/v1/feed?start_date=2022-03-${day-7}&end_date=${year}-${month}-${day}&api_key=DEMO_KEY`;
+    return `https://api.nasa.gov/neo/rest/v1/feed?start_date=2022-04-${day-7}&end_date=${year}-${month}-${day}&api_key=DEMO_KEY`;
 }
 
 
