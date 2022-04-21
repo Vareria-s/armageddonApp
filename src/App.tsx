@@ -4,11 +4,12 @@ import Header from './components/header/Header';
 import Content from "./components/content/Content";
 import {BrowserRouter} from "react-router-dom";
 
+interface IContextProps {
+    state: any;
+    dispatch: any;
+}
 
-// @ts-ignore
-export const MyContext= createContext();
-
-
+export const MyContext= createContext<Partial<IContextProps>>({});
 
 export type asteroidsContextType = {
     asteroids: any,
@@ -24,22 +25,29 @@ export const initialState: asteroidsContextType = {
     setIsDistance:false,
 }
 
+export const LOAD_ASTEROIDS = 'LOAD_ASTEROIDS';
+export const ADD = 'ADD';
+export const DELETE = 'DELETE';
+export const CHANGE_ONLY_DANGEROUS = 'CHANGE_ONLY_DANGEROUS';
+export const NEW_CHANGE_ONLY_DISTANCE = 'NEW_CHANGE_ONLY_DISTANCE';
+export const CHANGE_ONLY_DISTANCE = 'CHANGE_ONLY_DISTANCE';
 
-const App = () => {
 
-    const asteroidsReducer = (state = initialState, action: any) => {
+export const App = () => {
+
+    const asteroidsReducer = (state = initialState, action: any): asteroidsContextType => {
         switch (action?.type) {
-            case 'LOAD_ASTEROIDS':
+            case LOAD_ASTEROIDS:
                 return {...state, asteroids: action.payload};
-            case 'ADD':
+            case ADD:
                 return {...state, asteroidsForDestroying: [...state.asteroidsForDestroying, action.payload]};
-            case 'DELETE':
+            case DELETE:
                 return {...state, asteroidsForDestroying: [...state.asteroidsForDestroying.filter((item: { name: any; }) => item.name !== action.payload.name)]};
-            case 'CHANGE_ONLY_DANGEROUS':
+            case CHANGE_ONLY_DANGEROUS:
                 return {...state, onlyDangerous: !state.onlyDangerous};
-            case 'NEW_CHANGE_ONLY_DISTANCE':
+            case NEW_CHANGE_ONLY_DISTANCE:
                 return {...state, setIsDistance: false};
-            case 'CHANGE_ONLY_DISTANCE':
+            case CHANGE_ONLY_DISTANCE:
                 return {...state, setIsDistance: true};
             default:
                 return state;
@@ -73,13 +81,24 @@ const App = () => {
 
 export default App;
 
+export type asteroidType = {
+    id: string,
+    name: string,
+    date:number,
+    distance: {
+        kilometers: number,
+        moon:number
+    },
+    size: string,
+    inDangerous: boolean
+}
 
-const mapAsteroids = (nearEarthObjects: any) =>{
+const mapAsteroids = (nearEarthObjects: any)  =>{
     let asteroids: any = [];
     for (let day in nearEarthObjects) {
         asteroids = asteroids.concat(nearEarthObjects[day])
     }
-    return asteroids.map((asteroid : any) => {
+    return asteroids.map((asteroid:any): asteroidType => {
         return {
             id: asteroid.id,
             name: asteroid.name,
@@ -95,11 +114,12 @@ const mapAsteroids = (nearEarthObjects: any) =>{
 }
 
 const makeRequest =()=>{
+    const url = 'https://api.nasa.gov/neo/rest/v1';
     const dateObj = new Date();
     const day: any = dateObj.getUTCDate().toString();
     const month = (dateObj.getMonth() + 1).toString(); //months from 1-12
     const year = dateObj.getUTCFullYear();
-    return `https://api.nasa.gov/neo/rest/v1/feed?start_date=2022-04-${day-4}&end_date=${year}-${month}-${day}&api_key=DEMO_KEY`;
+    return `${url}/feed?start_date=${year}-${month}-${day}&api_key=DEMO_KEY`;
 }
 
 

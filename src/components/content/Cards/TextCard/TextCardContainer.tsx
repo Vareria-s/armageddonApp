@@ -8,7 +8,6 @@ export type TextCardContainerProps  = {
 }
 
 export const TextCardContainer = (props: TextCardContainerProps) => {
-    // @ts-ignore
     const {state, dispatch} = useContext(MyContext);
     const {asteroid} = props;
 
